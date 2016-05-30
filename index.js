@@ -2,7 +2,6 @@ const joi = require('joi')
 const rest = require('rest')
 const mime = require('rest/interceptor/mime')
 const errorCode = require('rest/interceptor/errorCode')
-const defaultRequest = require('rest/interceptor/defaultRequest')
 const pathPrefix = require('rest/interceptor/pathPrefix')
 const location = require('rest/interceptor/location')
 

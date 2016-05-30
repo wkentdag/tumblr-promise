@@ -1,4 +1,6 @@
 # tumblr-promise
+[![version](https://img.shields.io/npm/v/tumblr-promise.svg?style=flat)](https://www.npmjs.com/package/tumblr-promise)
+[![Build Status](https://travis-ci.org/wkentdag/tumblr-promise.svg?branch=master)](https://travis-ci.org/wkentdag/tumblr-promise) [![Coverage Status](https://coveralls.io/repos/github/wkentdag/tumblr-promise/badge.svg?branch=master)](https://coveralls.io/github/wkentdag/tumblr-promise?branch=master) [![dependencies](http://img.shields.io/david/wkentdag/tumblr-promise.svg?style=flat)](https://david-dm.org/wkentdag/tumblr-promise)
 
 minimal, promise-based [tumblr api](https://www.tumblr.com/docs/en/api/v2) client for node.js
 
@@ -15,11 +17,9 @@ It's true that there are [plenty](https://www.npmjs.com/package/tumblr) [of](htt
 This package is designed to be able to fetch posts using several query parameters at once while sorting and transforming the data on the fly. It is very flexible but its overall api coverage is opinionated and selective; ideally it *would* cover the entire api, so pull requests are welcome, but I don't expect it to ever have 100% coverage. If you're looking for a more generic wrapper I would recommend the official client.
 
 ### Installation
-with [npm](https://www.npmjs.com/package/tumblr-promise):
+with [npm](https://www.npmjs.com/package/tumblr-promise) and node `^6.0.0`:
 
 `npm install tumblr-promise --save`
-
-> :exclamation: this package requires node `^6.0.0`
 
 ### Authentication
 Depending on the request, tumblr api endpoints require different forms of authentication. Some are unauthenticated, the bulk need an api key, and the most complex require an OAuth token. Check out the [docs](https://www.tumblr.com/docs/en/api/v2) for details and instructions for generating a token.
@@ -46,7 +46,7 @@ api
 .filter(['array', 'works', 'too'])
 .media('photo')
 .media('video') //  multiple content types in one request!
-.transform(p =>  //  map function to apply to every post
+.transform(p => { //  map function to apply to every post
   delete p.foo
   p.bar = p.baz * 2
   return p

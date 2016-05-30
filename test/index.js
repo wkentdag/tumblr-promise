@@ -33,7 +33,7 @@ test('initializes with correct options', (t) => {
 })
 
 test('gets data when valid data is provided', (t) => {
-  return api.photo.get().then((res) => {
+  return api.photo.get().then(res =>
     t.truthy(res.meta.status === 200)
-  })
+  )
 })
