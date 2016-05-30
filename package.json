@@ -1,0 +1,40 @@
+{
+  "name": "tumblr-promise",
+  "version": "0.0.1",
+  "description": "minimal, promise-based tumblr api client",
+  "main": "index.js",
+  "scripts": {
+    "coverage": "nyc ava",
+    "coveralls": "nyc --reporter=lcov ava && cat ./coverage/lcov.info | coveralls",
+    "docs": "jsdoc index.js -d docs",
+    "lint": "standard",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wkentdag/tumblr-promise.git"
+  },
+  "keywords": [
+    "tumblr",
+    "promise"
+  ],
+  "author": "Will Kent-Daggett",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wkentdag/tumblr-promise/issues"
+  },
+  "homepage": "https://github.com/wkentdag/tumblr-promise#readme",
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "coveralls": "^2.11.9",
+    "dotenv": "^2.0.0",
+    "nyc": "^6.4.4",
+    "standard": "^7.1.1"
+  },
+  "dependencies": {
+    "allow": "^2.0.0",
+    "joi": "^8.3.0",
+    "rest": "^1.3.2",
+    "when": "^3.7.7"
+  }
+}
