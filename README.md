@@ -36,21 +36,22 @@ const api = Tumblr.new({
 })
 
 //  simplest invocation
-let last20Posts = api.get()
+let last20Posts = api.fetch()
 
 //  the fun part...
-api
-.get(5)
+let query = api
 .skip(10)
-.filter('portfolio, case studies')  // filter by #tag
-.filter(['array', 'works', 'too'])
-.media('photo')
-.media('video') //  multiple content types in one request!
+.tag('portfolio, case studies')  // filter by #tag
+.tag(['array', 'works', 'too'])
+.type('photo')
+.type('video') //  multiple content types
 .transform(p => { //  map function to apply to every post
   delete p.foo
   p.bar = p.baz * 2
   return p
 })
+
+query.fetch()  //  fire the query
 .then(console.log)
 .catch(console.error)
 ```

@@ -3,3 +3,4 @@ docs
 .DS_Store
 .env
 .nyc_output
+*.log
