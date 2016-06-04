@@ -23,11 +23,8 @@ module.exports = class Tumblr {
     const opts = this._validate(_opts)
     Object.assign(this, opts)
 
-    this._req_opts = {
-      tag: [],
-      type: ['photo']
-    }
-    this.request = rest
+    this._req = {}
+    this._request = rest
     .wrap(mime)
     .wrap(errorCode)
     .wrap(location)
@@ -35,39 +32,47 @@ module.exports = class Tumblr {
       params: {api_key: this.api_key}
     })
     .wrap(pathPrefix, {
-      prefix: `https://api.tumblr.com/v2/blog/${opts.name}.tumblr.com/posts`
+      prefix: `https://api.tumblr.com/v2/blog/${this.name}.tumblr.com/posts`
     })
   }
 
   fetch () {
-    // TODO:
-    // process the options, perform parallel requests and transforms if needed
-    // this._req_opts = {}
-    return this.request(`/${this._req_opts.type[0]}`).then(r => r.entity)
+    // TODO: perform transforms
+    // TODO: perform parallel requests if needed
+    return new Promise((resolve, reject) => {
+      this._request({
+        params: this._req
+      }).then(r => {
+        delete this._req
+        return resolve(r.entity)
+      })
+      .catch(reject)
+    })
   }
 
-  limit (i) {
-    this._req_opts.limit = (i < 20) ? i : 20
+  limit (req) {
+    this._req.limit = (i < 20) ? i : 20
     return this
   }
 
   skip (i) {
-    this._req_opts.offset = i
+    this._req.offset = i
     return this
   }
 
   tag (s) {
-    this._req_opts.tag.push(s)
+    this._req.tag = s
     return this
   }
 
   transform (f) {
-    this._req_opts.transform = f
+    this._req.transform = f
     return this
   }
 
   type (s) {
-    this._req_opts.type.push(s)
+    let valid = s.match(/^text|photo|quote|link|chat|audio|video|answer$/)
+    if (valid) this._req.type = s
     return this
   }
 
@@ -87,7 +92,7 @@ module.exports = class Tumblr {
     })
 
     const res = joi.validate(opts, schema)
-    if (res.error) { throw new Error(res.error) }
+    if (res.error) throw new Error(res.error)
     return res.value
   }
 }

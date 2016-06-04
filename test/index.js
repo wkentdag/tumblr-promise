@@ -38,8 +38,16 @@ test('gets data when valid data is provided', (t) => {
   )
 })
 
-test('wrapper functions can be chained', (t) => {
-  return api.type('foo').tag('bar').fetch().then(res => {
+test('chains parameters', (t) => {
+  return api.type('photo').tag('bar').fetch().then(res => {
     t.truthy(res.meta.status === 200)
+    t.truthy(res.response.posts[0].tags.includes('bar'))
+    t.truthy(res.response.posts[0].type === 'photo')
   })
+})
+
+test('ignores bad type params', (t) => {
+  return api.type('badkind').fetch().then(res =>
+    t.truthy(res.response.posts[0].type === 'photo')
+  )
 })
